@@ -1,0 +1,3013 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,
+initial-scale=1,
+maximum-scale=1,
+user-scalable=no,
+viewport-fit=cover">
+
+<meta name="theme-color" content="#f5f1eb">
+
+<title>M & L — Wedding Day</title>
+
+
+<!-- =====================================================
+     FONTS
+===================================================== -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cormorant+Garamond:wght@300;400;500;600&family=Montserrat:wght@300;400;500&display=swap"
+      rel="stylesheet">
+
+
+<!-- QR CODE -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+
+<style>
+
+/* =====================================================
+   RESET
+===================================================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+
+    background:#f5f1eb;
+
+    scroll-behavior:smooth;
+
+    -webkit-text-size-adjust:100%;
+}
+
+body{
+
+    margin:0;
+
+    background:#f5f1eb;
+
+    color:#171717;
+
+    overflow-x:hidden;
+
+    -webkit-font-smoothing:antialiased;
+
+    text-rendering:optimizeLegibility;
+
+    font-family:
+        "Amiri",
+        serif;
+}
+
+img,
+video{
+
+    display:block;
+
+    max-width:100%;
+}
+
+button,
+input,
+textarea,
+select{
+
+    font:inherit;
+}
+
+
+/* =====================================================
+   ENVELOPE SCREEN
+===================================================== */
+
+#envelopeScreen{
+
+    position:fixed;
+
+    inset:0;
+
+    width:100%;
+
+    height:100vh;
+
+    height:100dvh;
+
+    z-index:9999;
+
+    background:#111;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    overflow:hidden;
+
+    transition:
+        opacity 1s ease,
+        visibility 1s ease;
+}
+
+
+#envelopeScreen.hidden{
+
+    opacity:0;
+
+    visibility:hidden;
+
+    pointer-events:none;
+}
+
+
+/*
+   IMPORTANT
+
+   هنا أصبح COVER كما طلبت:
+   الفيديو يملأ الشاشة بالكامل.
+*/
+
+#envelopeCover{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    object-position:center center;
+
+    cursor:pointer;
+
+    -webkit-tap-highlight-color:transparent;
+}
+
+
+/* =====================================================
+   INVITATION
+===================================================== */
+
+#invitation{
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:
+        opacity 1.2s ease;
+}
+
+
+#invitation.visible{
+
+    opacity:1;
+
+    pointer-events:auto;
+}
+
+
+/* =====================================================
+   GENERAL SECTIONS
+===================================================== */
+
+.section{
+
+    position:relative;
+
+    width:100%;
+
+    overflow:hidden;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:#171717;
+
+    isolation:isolate;
+}
+
+
+/*
+   الصور الأصلية 1080x1350
+   = 4:5
+
+   لذلك نحافظ على النسبة.
+*/
+
+.paper-section{
+
+    aspect-ratio:4 / 5;
+
+    min-height:0;
+
+    background:#f5f1eb;
+}
+
+
+/* =====================================================
+   BACKGROUND
+===================================================== */
+
+.background-image{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+    object-position:center center;
+
+    z-index:-2;
+}
+
+
+/* =====================================================
+   MUSIC BUTTON
+===================================================== */
+
+#musicControl{
+
+    position:fixed;
+
+    top:
+        calc(
+            16px +
+            env(safe-area-inset-top)
+        );
+
+    right:16px;
+
+    width:50px;
+
+    height:50px;
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(0,0,0,.16);
+
+    background:
+        rgba(255,255,255,.67);
+
+    backdrop-filter:blur(15px);
+
+    -webkit-backdrop-filter:blur(15px);
+
+    box-shadow:
+        0 7px 25px
+        rgba(0,0,0,.12);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:#171717;
+
+    z-index:5000;
+
+    cursor:pointer;
+
+    -webkit-tap-highlight-color:
+        transparent;
+
+    transition:
+        transform .2s ease;
+}
+
+
+#musicControl:active{
+
+    transform:scale(.91);
+}
+
+
+#musicControl svg{
+
+    width:22px;
+
+    height:22px;
+
+    fill:none;
+
+    stroke:currentColor;
+
+    stroke-width:1.5;
+
+    stroke-linecap:round;
+
+    stroke-linejoin:round;
+}
+
+
+#musicControl.playing{
+
+    animation:
+        musicPulse 2s infinite;
+}
+
+
+@keyframes musicPulse{
+
+    0%,100%{
+
+        box-shadow:
+            0 7px 25px
+            rgba(0,0,0,.12);
+    }
+
+    50%{
+
+        box-shadow:
+            0 7px 30px
+            rgba(0,0,0,.22);
+    }
+}
+
+
+/* =====================================================
+   SECTION 1 — DUCKS
+===================================================== */
+
+.ducks-section{
+
+    aspect-ratio:9 / 16;
+
+    min-height:0;
+
+    background:#edf1f2;
+}
+
+
+#ducksVideo{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+
+    height:100%;
+
+    /*
+       FULL VIDEO
+       بدون قص
+    */
+
+    object-fit:contain;
+
+    object-position:center center;
+
+    background:#edf1f2;
+
+    z-index:-2;
+}
+
+
+/* Text over ducks */
+
+.ducks-content{
+
+    position:absolute;
+
+    inset:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    text-align:center;
+
+    padding:20px;
+
+    color:#171717;
+
+    pointer-events:none;
+}
+
+
+/*
+   SIMPLE INITIALS
+   رجعناه خط بسيط
+*/
+
+.ducks-initials{
+
+    direction:ltr;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size:
+        clamp(
+            76px,
+            22vw,
+            135px
+        );
+
+    font-weight:400;
+
+    letter-spacing:9px;
+
+    line-height:.9;
+
+    margin-top:7px;
+}
+
+
+.ducks-title{
+
+    direction:ltr;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size:
+        clamp(
+            20px,
+            5.8vw,
+            32px
+        );
+
+    letter-spacing:3px;
+
+    text-transform:uppercase;
+
+    font-weight:500;
+}
+
+
+.ducks-date{
+
+    direction:ltr;
+
+    margin-top:18px;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size:
+        clamp(
+            18px,
+            5vw,
+            29px
+        );
+
+    letter-spacing:4px;
+
+    font-weight:400;
+}
+
+
+/* =====================================================
+   CONTENT
+===================================================== */
+
+.section-content{
+
+    position:relative;
+
+    z-index:2;
+
+    width:90%;
+
+    max-width:670px;
+
+    margin:auto;
+
+    text-align:center;
+
+    color:#171717;
+}
+
+
+/* =====================================================
+   ARABIC TYPOGRAPHY
+===================================================== */
+
+/*
+   Amiri يعطي مظهرًا أقرب
+   للخط العربي الكلاسيكي
+*/
+
+.bismillah{
+
+    font-family:
+        "Amiri",
+        serif;
+
+    font-size:
+        clamp(
+            21px,
+            5.5vw,
+            30px
+        );
+
+    font-weight:400;
+
+    line-height:1.8;
+
+    margin-bottom:10px;
+}
+
+
+.quran-verse{
+
+    font-family:
+        "Amiri",
+        serif;
+
+    font-size:
+        clamp(
+            16px,
+            4.2vw,
+            23px
+        );
+
+    font-weight:400;
+
+    line-height:2;
+
+    max-width:620px;
+
+    margin:auto;
+
+    direction:rtl;
+}
+
+
+.invitation-message{
+
+    margin-top:18px;
+
+    font-family:
+        "Amiri",
+        serif;
+
+    font-size:
+        clamp(
+            15px,
+            4vw,
+            21px
+        );
+
+    font-weight:400;
+
+    line-height:1.95;
+}
+
+
+/* =====================================================
+   COUNTDOWN
+===================================================== */
+
+.countdown-heading{
+
+    direction:ltr;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size:
+        clamp(
+            29px,
+            8vw,
+            45px
+        );
+
+    font-weight:500;
+
+    margin-bottom:5px;
+}
+
+
+.wedding-date{
+
+    font-family:
+        "Amiri",
+        serif;
+
+    font-size:
+        clamp(
+            23px,
+            6.5vw,
+            37px
+        );
+
+    font-weight:400;
+
+    margin-bottom:1px;
+}
+
+
+.start-time{
+
+    direction:ltr;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size:
+        clamp(
+            16px,
+            4vw,
+            22px
+        );
+
+    margin-bottom:24px;
+}
+
+
+/* Countdown grid */
+
+.countdown{
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap:9px;
+
+    width:100%;
+
+    direction:ltr;
+}
+
+
+/* Each countdown */
+
+.time-item{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+}
+
+
+/*
+   BIG CIRCULAR ICON
+*/
+
+.time-icon{
+
+    width:
+        clamp(
+            47px,
+            13vw,
+            64px
+        );
+
+    height:
+        clamp(
+            47px,
+            13vw,
+            64px
+        );
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(0,0,0,.23);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    margin-bottom:8px;
+
+    background:
+        rgba(255,255,255,.25);
+}
+
+
+.time-icon svg{
+
+    width:
+        clamp(
+            22px,
+            6vw,
+            29px
+        );
+
+    height:
+        clamp(
+            22px,
+            6vw,
+            29px
+        );
+
+    fill:none;
+
+    stroke:#171717;
+
+    stroke-width:1.25;
+
+    stroke-linecap:round;
+
+    stroke-linejoin:round;
+}
+
+
+.time-number{
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size:
+        clamp(
+            27px,
+            8vw,
+            43px
+        );
+
+    font-weight:500;
+
+    line-height:1;
+}
+
+
+.time-label{
+
+    margin-top:4px;
+
+    font-family:
+        "Montserrat",
+        sans-serif;
+
+    font-size:
+        clamp(
+            7px,
+            2vw,
+            10px
+        );
+
+    letter-spacing:1px;
+
+    text-transform:uppercase;
+}
+
+
+/* =====================================================
+   LOCATION
+===================================================== */
+
+.location-title{
+
+    direction:ltr;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size:
+        clamp(
+            30px,
+            8vw,
+            47px
+        );
+
+    font-weight:500;
+
+    margin-bottom:2px;
+}
+
+
+.venue-name{
+
+    font-family:
+        "Amiri",
+        serif;
+
+    font-size:
+        clamp(
+            23px,
+            6vw,
+            35px
+        );
+
+    font-weight:600;
+}
+
+
+.venue-address{
+
+    font-family:
+        "Amiri",
+        serif;
+
+    font-size:
+        clamp(
+            15px,
+            4vw,
+            20px
+        );
+
+    margin-bottom:12px;
+}
+
+
+/*
+   BIG VENUE PHOTO
+*/
+
+.venue-photo{
+
+    width:
+        min(
+            86vw,
+            520px
+        );
+
+    aspect-ratio:
+        16 / 9;
+
+    object-fit:cover;
+
+    object-position:center;
+
+    border-radius:16px;
+
+    border:
+        1px solid
+        rgba(0,0,0,.14);
+
+    box-shadow:
+        0 10px 30px
+        rgba(0,0,0,.13);
+
+    margin:
+        6px auto 15px;
+}
+
+
+/* Location controls */
+
+.location-actions{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:18px;
+
+    direction:ltr;
+}
+
+
+/*
+   BIG QR
+*/
+
+#qrcode{
+
+    width:
+        clamp(
+            105px,
+            27vw,
+            145px
+        );
+
+    height:
+        clamp(
+            105px,
+            27vw,
+            145px
+        );
+
+    padding:8px;
+
+    border-radius:18px;
+
+    background:#fff;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    box-shadow:
+        0 8px 25px
+        rgba(0,0,0,.12);
+}
+
+
+#qrcode img,
+#qrcode canvas{
+
+    width:
+        calc(100% - 8px)!important;
+
+    height:
+        calc(100% - 8px)!important;
+}
+
+
+/*
+   GPS CIRCLE
+*/
+
+.gps-button{
+
+    width:
+        clamp(
+            58px,
+            15vw,
+            72px
+        );
+
+    height:
+        clamp(
+            58px,
+            15vw,
+            72px
+        );
+
+    border-radius:50%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:
+        rgba(255,255,255,.55);
+
+    border:
+        1px solid
+        rgba(0,0,0,.18);
+
+    color:#171717;
+
+    text-decoration:none;
+
+    box-shadow:
+        0 7px 22px
+        rgba(0,0,0,.10);
+}
+
+
+.gps-button svg{
+
+    width:
+        clamp(
+            26px,
+            7vw,
+            34px
+        );
+
+    height:
+        clamp(
+            26px,
+            7vw,
+            34px
+        );
+
+    fill:none;
+
+    stroke:currentColor;
+
+    stroke-width:1.4;
+
+    stroke-linecap:round;
+
+    stroke-linejoin:round;
+}
+
+
+/* =====================================================
+   GENTLE REQUEST
+===================================================== */
+
+.request-title{
+
+    direction:ltr;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size:
+        clamp(
+            29px,
+            8vw,
+            45px
+        );
+
+    font-weight:500;
+
+    margin-bottom:10px;
+}
+
+
+.request-text{
+
+    font-family:
+        "Amiri",
+        serif;
+
+    font-size:
+        clamp(
+            16px,
+            4.2vw,
+            22px
+        );
+
+    line-height:1.9;
+
+    margin-bottom:16px;
+}
+
+
+.no-camera-icon{
+
+    width:
+        clamp(
+            65px,
+            17vw,
+            82px
+        );
+
+    height:
+        clamp(
+            65px,
+            17vw,
+            82px
+        );
+
+    border-radius:50%;
+
+    border:
+        1px solid
+        rgba(0,0,0,.20);
+
+    background:
+        rgba(255,255,255,.28);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    margin:
+        0 auto 9px;
+}
+
+
+.no-camera-icon svg{
+
+    width:
+        clamp(
+            30px,
+            8vw,
+            39px
+        );
+
+    height:
+        clamp(
+            30px,
+            8vw,
+            39px
+        );
+
+    fill:none;
+
+    stroke:#171717;
+
+    stroke-width:1.3;
+
+    stroke-linecap:round;
+
+    stroke-linejoin:round;
+}
+
+
+.no-photo-title{
+
+    font-family:
+        "Amiri",
+        serif;
+
+    font-size:
+        clamp(
+            21px,
+            5.5vw,
+            30px
+        );
+
+    font-weight:600;
+
+    margin-bottom:4px;
+}
+
+
+.no-photo-description{
+
+    font-family:
+        "Amiri",
+        serif;
+
+    font-size:
+        clamp(
+            15px,
+            3.8vw,
+            20px
+        );
+
+    line-height:1.8;
+}
+
+
+/* =====================================================
+   RSVP
+===================================================== */
+
+.rsvp-title{
+
+    font-family:
+        "Amiri",
+        serif;
+
+    font-size:
+        clamp(
+            31px,
+            8vw,
+            46px
+        );
+
+    font-weight:600;
+
+    margin-bottom:14px;
+}
+
+
+.form-group{
+
+    margin-bottom:8px;
+
+    text-align:right;
+}
+
+
+.form-label{
+
+    display:block;
+
+    font-family:
+        "Amiri",
+        serif;
+
+    font-size:
+        clamp(
+            14px,
+            3.6vw,
+            18px
+        );
+
+    font-weight:600;
+
+    margin-bottom:2px;
+}
+
+
+.form-input,
+.form-select,
+.form-textarea{
+
+    width:100%;
+
+    padding:
+        7px 4px;
+
+    border:none;
+
+    border-bottom:
+        1px solid
+        rgba(0,0,0,.27);
+
+    background:transparent;
+
+    outline:none;
+
+    color:#171717;
+
+    font-family:
+        "Amiri",
+        serif;
+
+    font-size:
+        16px;
+
+    border-radius:0;
+
+    -webkit-appearance:none;
+
+    appearance:none;
+}
+
+
+.form-input::placeholder,
+.form-textarea::placeholder{
+
+    color:
+        rgba(0,0,0,.47);
+}
+
+
+.form-select option{
+
+    color:#111;
+}
+
+
+.form-textarea{
+
+    resize:none;
+
+    min-height:45px;
+}
+
+
+.submit-button{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:9px;
+
+    margin:
+        13px auto 0;
+
+    padding:
+        10px 25px;
+
+    border:
+        1px solid
+        rgba(0,0,0,.20);
+
+    border-radius:30px;
+
+    background:
+        rgba(255,255,255,.45);
+
+    color:#171717;
+
+    font-family:
+        "Amiri",
+        serif;
+
+    font-size:16px;
+
+    cursor:pointer;
+
+    box-shadow:
+        0 5px 16px
+        rgba(0,0,0,.07);
+}
+
+
+.submit-button svg{
+
+    width:20px;
+
+    height:20px;
+
+    fill:none;
+
+    stroke:currentColor;
+
+    stroke-width:1.4;
+}
+
+
+.submit-button:active{
+
+    transform:scale(.96);
+}
+
+
+.submit-button:disabled{
+
+    opacity:.5;
+}
+
+
+#rsvpMessage{
+
+    min-height:20px;
+
+    margin-top:8px;
+
+    text-align:center;
+
+    font-family:
+        "Amiri",
+        serif;
+
+    font-size:15px;
+}
+
+
+/* =====================================================
+   FINAL
+===================================================== */
+
+.final-english{
+
+    direction:ltr;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size:
+        clamp(
+            22px,
+            6vw,
+            35px
+        );
+
+    line-height:1.3;
+
+    font-style:italic;
+
+    margin-bottom:20px;
+}
+
+
+.final-arabic{
+
+    font-family:
+        "Amiri",
+        serif;
+
+    font-size:
+        clamp(
+            16px,
+            4.2vw,
+            22px
+        );
+
+    line-height:2;
+}
+
+
+/*
+   Simple initials in final section
+*/
+
+.final-monogram{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:14px;
+
+    direction:ltr;
+
+    margin-top:22px;
+}
+
+
+.final-letter{
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size:
+        clamp(
+            55px,
+            15vw,
+            78px
+        );
+
+    font-weight:400;
+
+    line-height:1;
+}
+
+
+/*
+   Ring drawn with SVG.
+   NOT an emoji.
+*/
+
+.ring-icon{
+
+    width:
+        clamp(
+            38px,
+            10vw,
+            50px
+        );
+
+    height:
+        clamp(
+            38px,
+            10vw,
+            50px
+        );
+}
+
+
+.ring-icon polygon,
+.ring-icon path{
+
+    fill:none;
+
+    stroke:#171717;
+
+    stroke-width:1.25;
+
+    stroke-linecap:round;
+
+    stroke-linejoin:round;
+}
+
+
+.made-with-love{
+
+    direction:ltr;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size:
+        clamp(
+            14px,
+            3.8vw,
+            19px
+        );
+
+    font-style:italic;
+
+    margin-top:6px;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:500px){
+
+    .section-content{
+
+        width:91%;
+    }
+
+
+    .quran-verse{
+
+        font-size:
+            clamp(
+                14px,
+                3.8vw,
+                18px
+            );
+
+        line-height:1.85;
+    }
+
+
+    .invitation-message{
+
+        font-size:
+            clamp(
+                13.5px,
+                3.6vw,
+                17px
+            );
+
+        line-height:1.8;
+    }
+
+
+    .venue-photo{
+
+        width:86vw;
+
+        border-radius:14px;
+    }
+
+
+    #musicControl{
+
+        width:46px;
+
+        height:46px;
+
+        right:14px;
+    }
+
+}
+
+
+/* =====================================================
+   VERY SMALL PHONES
+===================================================== */
+
+@media(max-width:350px){
+
+    .quran-verse{
+
+        font-size:13px;
+    }
+
+
+    .invitation-message{
+
+        font-size:12.5px;
+    }
+
+
+    .countdown{
+
+        gap:4px;
+    }
+
+
+    .time-label{
+
+        font-size:6px;
+    }
+
+}
+
+
+/* ===== LARGER TYPOGRAPHY ===== */
+.bismillah{font-size:clamp(27px,7vw,38px)!important;}
+.quran-verse{font-size:clamp(20px,5.2vw,28px)!important;line-height:2.05!important;}
+.invitation-message{font-size:clamp(19px,5vw,26px)!important;line-height:2!important;}
+.countdown-heading{font-size:clamp(34px,9vw,52px)!important;}
+.wedding-date{font-size:clamp(27px,7.5vw,42px)!important;}
+.start-time{font-size:clamp(19px,5vw,27px)!important;}
+.time-number{font-size:clamp(31px,9vw,48px)!important;}
+.time-label{font-size:clamp(9px,2.6vw,12px)!important;letter-spacing:1.2px!important;}
+.location-title{font-size:clamp(35px,9vw,52px)!important;}
+.venue-name{font-size:clamp(27px,7vw,40px)!important;}
+.venue-address{font-size:clamp(19px,5vw,26px)!important;}
+.ducks-title{font-size:clamp(23px,6.5vw,36px)!important;}
+.ducks-date{font-size:clamp(21px,5.8vw,32px)!important;}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     ENVELOPE
+===================================================== -->
+
+<div id="envelopeScreen">
+
+    <img
+        id="envelopeCover"
+        src="cover.jpg"
+        alt="Wedding Invitation"
+        loading="eager">
+
+</div>
+
+</div>
+
+
+
+<!-- =====================================================
+     MUSIC
+===================================================== -->
+
+<audio
+    id="backgroundMusic"
+    src="music.mp3"
+    preload="auto"
+    loop>
+</audio>
+
+
+
+<!-- MUSIC CONTROL -->
+
+<button
+    id="musicControl"
+    aria-label="Music">
+
+
+    <svg
+        id="musicOn"
+        viewBox="0 0 24 24">
+
+        <path d="M9 18V5l10-2v13"/>
+
+        <circle
+            cx="6"
+            cy="18"
+            r="3"/>
+
+        <circle
+            cx="16"
+            cy="16"
+            r="3"/>
+
+    </svg>
+
+
+    <svg
+        id="musicOff"
+        viewBox="0 0 24 24"
+        style="display:none">
+
+        <path d="M9 18V5l10-2v13"/>
+
+        <circle
+            cx="6"
+            cy="18"
+            r="3"/>
+
+        <circle
+            cx="16"
+            cy="16"
+            r="3"/>
+
+        <path d="M4 4L20 20"/>
+
+    </svg>
+
+</button>
+
+
+
+<!-- =====================================================
+     INVITATION
+===================================================== -->
+
+<main id="invitation">
+
+
+<!-- =====================================================
+     1 — DUCKS
+===================================================== -->
+
+<section class="section ducks-section">
+
+
+    <video
+        id="ducksVideo"
+        src="ducks.mp4"
+        autoplay
+        muted
+        loop
+        playsinline
+        webkit-playsinline
+        preload="auto">
+    </video>
+
+
+    <div class="ducks-content">
+
+
+        <div class="ducks-title">
+
+            Wedding Day
+
+        </div>
+
+
+        <div class="ducks-initials">
+
+            M L
+
+        </div>
+
+
+        <div class="ducks-date">
+
+            24.09.26
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     2 — QURAN
+===================================================== -->
+
+<section class="section paper-section">
+
+
+    <img
+        class="background-image"
+        src="image1.jpg"
+        alt="">
+
+
+    <div class="section-content">
+
+
+        <div class="bismillah">
+
+            بِسْمِ اللهِ الرَّحْمَنِ الرَّحِيمِ
+
+        </div>
+
+
+        <div class="quran-verse">
+
+            ﴿وَمِنْ آيَاتِهِ أَنْ خَلَقَ لَكُم
+            مِّنْ أَنفُسِكُمْ أَزْوَاجًا
+            لِّتَسْكُنُوا إِلَيْهَا وَجَعَلَ
+            بَيْنَكُم مَّوَدَّةً وَرَحْمَةً ۚ
+            إِنَّ فِي ذَٰلِكَ لَآيَاتٍ
+            لِّقَوْمٍ يَتَفَكَّرُونَ﴾
+
+        </div>
+
+
+        <div class="invitation-message">
+
+            بكل الحب والفرح، يسعدنا أن نشارككم
+            أجمل لحظات حياتنا، وندعوكم لمشاركتنا
+            فرحة هذا اليوم المميز.
+
+            <br>
+
+            حضوركم معنا يجعل فرحتنا أجمل،
+            وذكرياتنا أكثر دفئًا وجمالاً.
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     3 — COUNTDOWN
+===================================================== -->
+
+<section class="section paper-section">
+
+
+    <img
+        class="background-image"
+        src="image2.jpg"
+        alt="">
+
+
+    <div class="section-content">
+
+
+        <div class="countdown-heading">
+
+            Wedding Day
+
+        </div>
+
+
+        <div class="wedding-date">
+
+            24 سبتمبر 2026
+
+        </div>
+
+
+        <div class="start-time">
+
+            The celebration begins at 17:00
+
+        </div>
+
+
+
+        <div class="countdown">
+
+
+            <!-- DAYS -->
+
+            <div class="time-item">
+
+
+                <div class="time-icon">
+
+                    <svg viewBox="0 0 24 24">
+
+                        <rect
+                            x="3"
+                            y="5"
+                            width="18"
+                            height="16"
+                            rx="2"/>
+
+                        <path
+                            d="M16 3v4M8 3v4M3 10h18"/>
+
+                    </svg>
+
+                </div>
+
+
+                <span
+                    class="time-number"
+                    id="days">
+
+                    00
+
+                </span>
+
+
+                <span class="time-label">
+
+                    Days
+
+                </span>
+
+            </div>
+
+
+
+            <!-- HOURS -->
+
+            <div class="time-item">
+
+
+                <div class="time-icon">
+
+                    <svg viewBox="0 0 24 24">
+
+                        <circle
+                            cx="12"
+                            cy="12"
+                            r="8.5"/>
+
+                        <path
+                            d="M12 7v5l3 2"/>
+
+                    </svg>
+
+                </div>
+
+
+                <span
+                    class="time-number"
+                    id="hours">
+
+                    00
+
+                </span>
+
+
+                <span class="time-label">
+
+                    Hours
+
+                </span>
+
+            </div>
+
+
+
+            <!-- MINUTES -->
+
+            <div class="time-item">
+
+
+                <div class="time-icon">
+
+                    <svg viewBox="0 0 24 24">
+
+                        <circle
+                            cx="12"
+                            cy="12"
+                            r="8.5"/>
+
+                        <path
+                            d="M12 8v4l-2.5 2"/>
+
+                    </svg>
+
+                </div>
+
+
+                <span
+                    class="time-number"
+                    id="minutes">
+
+                    00
+
+                </span>
+
+
+                <span class="time-label">
+
+                    Minutes
+
+                </span>
+
+            </div>
+
+
+
+            <!-- SECONDS -->
+
+            <div class="time-item">
+
+
+                <div class="time-icon">
+
+                    <svg viewBox="0 0 24 24">
+
+                        <circle
+                            cx="12"
+                            cy="12"
+                            r="8.5"/>
+
+                        <path
+                            d="M12 12V8"/>
+
+                        <path
+                            d="M12 12l3 2"/>
+
+                    </svg>
+
+                </div>
+
+
+                <span
+                    class="time-number"
+                    id="seconds">
+
+                    00
+
+                </span>
+
+
+                <span class="time-label">
+
+                    Seconds
+
+                </span>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     4 — LOCATION
+===================================================== -->
+
+<section class="section paper-section">
+
+
+    <img
+        class="background-image"
+        src="image1.jpg"
+        alt="">
+
+
+    <div
+        class="section-content location-content">
+
+
+        <div class="location-title">
+
+            Location
+
+        </div>
+
+
+        <div class="venue-name">
+
+            قاعة لالة زهور
+
+        </div>
+
+
+        <div class="venue-address">
+
+            براقي، الجزائر العاصمة
+
+        </div>
+
+
+        <!--
+             صورة القاعة
+             ضعها باسم venue.jpg
+        -->
+
+        <img
+            class="venue-photo"
+            src="venue.jpg"
+            alt="قاعة لالة زهور">
+
+
+        <div class="location-actions">
+
+
+            <!-- QR -->
+
+            <div id="qrcode"></div>
+
+
+            <!-- GPS -->
+
+            <a
+                class="gps-button"
+                href="https://maps.app.goo.gl/qNrVTHUUw2EFmGVy7"
+                target="_blank"
+                rel="noopener"
+                aria-label="Google Maps">
+
+
+                <svg viewBox="0 0 24 24">
+
+                    <path
+                        d="M12 21s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/>
+
+                    <circle
+                        cx="12"
+                        cy="9"
+                        r="2.4"/>
+
+                </svg>
+
+
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     5 — REQUEST
+===================================================== -->
+
+<section class="section paper-section">
+
+
+    <img
+        class="background-image"
+        src="image2.jpg"
+        alt="">
+
+
+    <div class="section-content">
+
+
+        <div class="request-title">
+
+            A Gentle Request
+
+        </div>
+
+
+        <div class="request-text">
+
+            حرصًا على خصوصية وجمال هذه المناسبة،
+            نرجو منكم الالتزام بالتعليمات التالية.
+
+        </div>
+
+
+        <div class="no-camera-icon">
+
+
+            <svg viewBox="0 0 24 24">
+
+                <path
+                    d="M4 8h3.7L9.2 6h5.6l1.5 2H20v10H4z"/>
+
+                <circle
+                    cx="12"
+                    cy="13"
+                    r="3"/>
+
+                <path
+                    d="M3 3L21 21"/>
+
+            </svg>
+
+
+        </div>
+
+
+        <div class="no-photo-title">
+
+            ممنوع التصوير
+
+        </div>
+
+
+        <div class="no-photo-description">
+
+            نرجو منكم لطفًا عدم التقاط الصور
+            أو تسجيل الفيديوهات أثناء الحفل.
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     6 — CONFIRM ATTENDANCE
+===================================================== -->
+
+<section class="section paper-section">
+
+
+    <img
+        class="background-image"
+        src="image1.jpg"
+        alt="">
+
+
+    <div class="section-content rsvp-content">
+
+
+        <div class="rsvp-title">
+
+            تأكيد الحضور
+
+        </div>
+
+
+        <form id="rsvpForm">
+
+
+            <!-- NAME -->
+
+            <div class="form-group">
+
+
+                <label
+                    class="form-label"
+                    for="guestName">
+
+                    الاسم الكامل
+
+                </label>
+
+
+                <input
+                    class="form-input"
+                    id="guestName"
+                    type="text"
+                    name="name"
+                    placeholder="اكتب اسمك الكامل"
+                    required>
+
+
+            </div>
+
+
+
+            <!-- NUMBER -->
+
+            <div class="form-group">
+
+
+                <label
+                    class="form-label"
+                    for="guestCount">
+
+                    عدد الحضور
+
+                </label>
+
+
+                <select
+                    class="form-select"
+                    id="guestCount"
+                    name="guests"
+                    required>
+
+
+                    <option value="">
+
+                        اختر العدد
+
+                    </option>
+
+
+                    <option value="1">1</option>
+
+                    <option value="2">2</option>
+
+                    <option value="3">3</option>
+
+                    <option value="4">4</option>
+
+                    <option value="5">5</option>
+
+                    <option value="6">6</option>
+
+                    <option value="7">7</option>
+
+                    <option value="8">8</option>
+
+                    <option value="9">9</option>
+
+                    <option value="10">10</option>
+
+
+                </select>
+
+            </div>
+
+
+
+            <!-- ATTENDANCE -->
+
+            <div class="form-group">
+
+
+                <label
+                    class="form-label"
+                    for="attendance">
+
+                    تأكيد الحضور
+
+                </label>
+
+
+                <select
+                    class="form-select"
+                    id="attendance"
+                    name="attendance"
+                    required>
+
+
+                    <option value="">
+
+                        اختر الإجابة
+
+                    </option>
+
+
+                    <option value="نعم، سأحضر">
+
+                        نعم، سأحضر
+
+                    </option>
+
+
+                    <option value="أعتذر، لن أتمكن من الحضور">
+
+                        أعتذر، لن أتمكن من الحضور
+
+                    </option>
+
+
+                </select>
+
+            </div>
+
+
+
+            <!-- NOTE -->
+
+            <div class="form-group">
+
+
+                <label
+                    class="form-label"
+                    for="note">
+
+                    ملاحظة
+
+                </label>
+
+
+                <textarea
+                    class="form-textarea"
+                    id="note"
+                    name="note"
+                    placeholder="ملاحظة اختيارية..."></textarea>
+
+
+            </div>
+
+
+
+            <!-- SUBMIT -->
+
+            <button
+                class="submit-button"
+                id="submitButton"
+                type="submit">
+
+
+                <svg viewBox="0 0 24 24">
+
+                    <path
+                        d="M20 6L9 17l-5-5"/>
+
+                </svg>
+
+
+                تأكيد الحضور
+
+
+            </button>
+
+
+            <div id="rsvpMessage"></div>
+
+
+        </form>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     7 — FINAL
+===================================================== -->
+
+<section class="section paper-section">
+
+
+    <img
+        class="background-image"
+        src="image2.jpg"
+        alt="">
+
+
+    <div class="section-content">
+
+
+        <div class="final-english">
+
+            Some moments are meant to be shared,
+            and some memories are meant to last forever.
+
+        </div>
+
+
+        <div class="final-arabic">
+
+            ننتظر حضوركم بكل حب
+
+            <br>
+
+            فرحتنا لا تكتمل إلا بوجودكم معنا،
+            ونتمنى أن يكون هذا اليوم ذكرى جميلة
+            تبقى في قلوبنا جميعًا.
+
+        </div>
+
+
+
+        <!-- MONOGRAM -->
+
+
+        <div class="final-monogram">
+
+
+            <span class="final-letter">
+
+                M
+
+            </span>
+
+
+            <!-- SVG RING -->
+
+            <svg
+                class="ring-icon"
+                viewBox="0 0 64 64">
+
+
+                <polygon
+                    points="32,7 24,15 28,24 36,24 40,15">
+                </polygon>
+
+
+                <path
+                    d="M24 15h16">
+                </path>
+
+
+                <path
+                    d="M28 24
+                       C18 27 14 36 17 46
+                       C20 55 29 59 38 56
+                       C47 53 51 44 48 35
+                       C46 29 42 25 36 24">
+                </path>
+
+
+            </svg>
+
+
+            <span class="final-letter">
+
+                L
+
+            </span>
+
+
+        </div>
+
+
+        <div class="made-with-love">
+
+            Made with love
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+
+<script>
+
+/* =====================================================
+   ELEMENTS
+===================================================== */
+
+const envelopeScreen =
+document.getElementById(
+    "envelopeScreen"
+);
+
+const envelopeVideo =
+document.getElementById(
+    "envelopeVideo"
+);
+
+const invitation =
+document.getElementById(
+    "invitation"
+);
+
+const music =
+document.getElementById(
+    "backgroundMusic"
+);
+
+const musicControl =
+document.getElementById(
+    "musicControl"
+);
+
+const musicOn =
+document.getElementById(
+    "musicOn"
+);
+
+const musicOff =
+document.getElementById(
+    "musicOff"
+);
+
+const ducksVideo =
+document.getElementById(
+    "ducksVideo"
+);
+
+
+/* =====================================================
+   GOOGLE SHEETS
+===================================================== */
+
+const RSVP_URL =
+"https://script.google.com/macros/s/AKfycbyLd-giA1J3OQBpKqquHqtPSEPxkrDsHERrDudOhWBu8pRdtSqGXGCsTeVd1niFTMWeTQ/exec";
+
+
+/* =====================================================
+   GOOGLE MAPS
+===================================================== */
+
+const MAPS_URL =
+"https://maps.app.goo.gl/qNrVTHUUw2EFmGVy7";
+
+
+/* =====================================================
+   WEDDING DATE
+===================================================== */
+
+const weddingDate =
+new Date(
+    "2026-09-24T17:00:00+01:00"
+);
+
+
+let musicReady =
+false;
+
+let invitationOpened =
+false;
+
+
+/* =====================================================
+   OPEN INVITATION FROM COVER IMAGE
+===================================================== */
+
+function openInvitation(){
+
+    if(invitationOpened){
+        return;
+    }
+
+    invitationOpened = true;
+
+    /* Start music from the user's tap */
+    music.muted = false;
+    music.volume = 1;
+
+    music.play()
+    .then(function(){
+        musicReady = true;
+        musicControl.classList.add("playing");
+        musicOn.style.display = "block";
+        musicOff.style.display = "none";
+    })
+    .catch(function(){
+        musicReady = false;
+    });
+
+    /* Show invitation */
+    invitation.classList.add("visible");
+
+    /* Hide cover */
+    envelopeScreen.classList.add("hidden");
+
+    setTimeout(function(){
+        envelopeScreen.style.display = "none";
+    }, 1100);
+
+    /* Keep ducks video muted and start it */
+    ducksVideo.muted = true;
+    ducksVideo.play().catch(()=>{});
+}
+
+
+/* =====================================================
+   CLICK COVER IMAGE
+===================================================== */
+
+envelopeScreen.addEventListener(
+    "click",
+    openInvitation
+);
+
+
+/* =====================================================
+   MUSIC CONTROL
+===================================================== */
+
+musicControl.addEventListener(
+    "click",
+    async function(){
+
+
+        if(
+            music.paused ||
+            music.muted
+        ){
+
+            music.muted =
+                false;
+
+            music.volume =
+                1;
+
+
+            try{
+
+                await music.play();
+
+
+                musicControl.classList.add(
+                    "playing"
+                );
+
+
+                musicOn.style.display =
+                    "block";
+
+                musicOff.style.display =
+                    "none";
+
+            }
+            catch(error){}
+
+        }
+        else{
+
+
+            music.pause();
+
+
+            musicControl.classList.remove(
+                "playing"
+            );
+
+
+            musicOn.style.display =
+                "none";
+
+            musicOff.style.display =
+                "block";
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   COUNTDOWN
+===================================================== */
+
+function updateCountdown(){
+
+    const now =
+        new Date();
+
+
+    const distance =
+        weddingDate.getTime() -
+        now.getTime();
+
+
+    const days =
+        document.getElementById(
+            "days"
+        );
+
+    const hours =
+        document.getElementById(
+            "hours"
+        );
+
+    const minutes =
+        document.getElementById(
+            "minutes"
+        );
+
+    const seconds =
+        document.getElementById(
+            "seconds"
+        );
+
+
+    if(distance <= 0){
+
+        days.textContent =
+            "00";
+
+        hours.textContent =
+            "00";
+
+        minutes.textContent =
+            "00";
+
+        seconds.textContent =
+            "00";
+
+        return;
+    }
+
+
+    const totalSeconds =
+        Math.floor(
+            distance / 1000
+        );
+
+
+    const d =
+        Math.floor(
+            totalSeconds /
+            86400
+        );
+
+
+    const h =
+        Math.floor(
+            (
+                totalSeconds %
+                86400
+            ) / 3600
+        );
+
+
+    const m =
+        Math.floor(
+            (
+                totalSeconds %
+                3600
+            ) / 60
+        );
+
+
+    const s =
+        totalSeconds %
+        60;
+
+
+    days.textContent =
+        String(d)
+        .padStart(2,"0");
+
+
+    hours.textContent =
+        String(h)
+        .padStart(2,"0");
+
+
+    minutes.textContent =
+        String(m)
+        .padStart(2,"0");
+
+
+    seconds.textContent =
+        String(s)
+        .padStart(2,"0");
+
+}
+
+
+updateCountdown();
+
+
+setInterval(
+    updateCountdown,
+    1000
+);
+
+
+/* =====================================================
+   QR CODE
+===================================================== */
+
+window.addEventListener(
+    "load",
+    function(){
+
+
+        const qr =
+            document.getElementById(
+                "qrcode"
+            );
+
+
+        if(
+            qr &&
+            typeof QRCode !==
+            "undefined"
+        ){
+
+            new QRCode(
+                qr,
+                {
+
+                    text:
+                        MAPS_URL,
+
+                    width:
+                        125,
+
+                    height:
+                        125,
+
+                    correctLevel:
+                        QRCode
+                        .CorrectLevel
+                        .H
+
+                }
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   RSVP
+===================================================== */
+
+const rsvpForm =
+document.getElementById(
+    "rsvpForm"
+);
+
+const submitButton =
+document.getElementById(
+    "submitButton"
+);
+
+const rsvpMessage =
+document.getElementById(
+    "rsvpMessage"
+);
+
+
+rsvpForm.addEventListener(
+    "submit",
+    async function(event){
+
+        event.preventDefault();
+
+
+        const data =
+            Object.fromEntries(
+                new FormData(
+                    rsvpForm
+                ).entries()
+            );
+
+
+        submitButton.disabled =
+            true;
+
+
+        submitButton.textContent =
+            "جارٍ إرسال التأكيد...";
+
+
+        rsvpMessage.textContent =
+            "";
+
+
+        try{
+
+
+            await fetch(
+                RSVP_URL,
+                {
+
+                    method:
+                        "POST",
+
+                    mode:
+                        "no-cors",
+
+                    headers:{
+
+                        "Content-Type":
+                            "text/plain;charset=utf-8"
+
+                    },
+
+                    body:
+                        JSON.stringify(
+                            data
+                        )
+
+                }
+            );
+
+
+            rsvpMessage.textContent =
+                "تم تسجيل تأكيد حضوركم بنجاح ♡";
+
+
+            rsvpForm.reset();
+
+
+        }
+        catch(error){
+
+
+            rsvpMessage.textContent =
+                "حدث خطأ، يرجى المحاولة مرة أخرى.";
+
+        }
+
+
+        submitButton.disabled =
+            false;
+
+
+        submitButton.innerHTML = `
+
+            <svg viewBox="0 0 24 24">
+
+                <path d="M20 6L9 17l-5-5"/>
+
+            </svg>
+
+            تأكيد الحضور
+
+        `;
+
+    }
+);
+
+
+/* =====================================================
+   FORCE SILENCE
+===================================================== */
+
+envelopeVideo.muted =
+    true;
+
+ducksVideo.muted =
+    true;
+
+</script>
+
+
+</body>
+
+</html>
