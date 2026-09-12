@@ -13,4 +13,17 @@ document.addEventListener("selectstart",e=>e.preventDefault());
 document.addEventListener("keydown",e=>{let x=e.key.toUpperCase();if(e.key==="F12"||(e.ctrlKey&&e.shiftKey&&["I","J","C"].includes(x))||(e.ctrlKey&&["U","S"].includes(x)))e.preventDefault();});
 (async()=>{let o=new Uint8Array(c.length);for(let off=0,b=0;off<c.length;off+=32,b++){let s=new Uint8Array(72);s.set(k);s.set(n,32);new DataView(s.buffer).setBigUint64(64,BigInt(b),false);let h=new Uint8Array(await crypto.subtle.digest("SHA-256",s));for(let i=0;i<Math.min(32,c.length-off);i++)o[off+i]=c[off+i]^h[i];}document.open();document.write(new TextDecoder().decode(o));document.close();})();
 })();
-</script></head><body></body></html>
+</script><meta property="og:type" content="website">
+<meta property="og:title" content="M & L — Wedding Invitation">
+<meta property="og:description" content="Wedding Invitation • 24.09.26">
+<meta property="og:image" content="preview.jpg">
+<meta property="og:image:alt" content="M & L Wedding Invitation">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="M & L — Wedding Invitation">
+<meta name="twitter:description" content="Wedding Invitation • 24.09.26">
+<meta name="twitter:image" content="preview.jpg">
+
+</head><body></body></html>
